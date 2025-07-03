@@ -538,75 +538,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona z trybem pełnoekranowym</title>
+    <title>Pełny Ekran</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0; /* Ważne: Usuń domyślne marginesy body */
-            min-height: 100vh; /* Ważne: Upewnij się, że body zajmuje całą wysokość widoku */
-            position: relative; /* Ważne: Pozwala na pozycjonowanie absolutne wewnątrz body */
-            padding-bottom: 80px; /* Dodaj padding, aby treść nie była zasłonięta przez przycisk */
-            background-color: #f0f0f0;
+            margin: 0;
+            min-height: 100vh; /* Upewnij się, że body zajmuje całą wysokość widoku */
+            position: relative;
+            /* Możesz tu dodać tło lub inne globalne style dla Twojej strony */
+            background-color: #f0f0f0; /* Przykładowe tło */
         }
 
-        /* Styl dla kontenera przycisku, który będzie na dole */
-        .fullscreen-button-container {
+        /* Styl dla niewidzialnego kontenera aktywującego pełny ekran */
+        #fullscreenActivator {
             position: fixed; /* Przycisk będzie zawsze na dole, nawet przy przewijaniu */
-            bottom: 20px; /* Odległość od dolnej krawędzi okna */
-            left: 50%; /* Przesuń o 50% szerokości okna od lewej */
-            transform: translateX(-50%); /* Przesuń w lewo o połowę własnej szerokości, aby wyśrodkować */
-            z-index: 1000; /* Upewnij się, że przycisk jest nad innymi elementami */
-        }
-
-        button {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Dodaj lekki cień dla lepszego wyglądu */
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px); /* Lekki efekt uniesienia przy najechaniu */
-        }
-        button:active {
-            transform: translateY(0); /* Powrót do pierwotnej pozycji przy kliknięciu */
-        }
-
-        /* Przykładowa treść strony */
-        .content {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .content p {
-            line-height: 1.6;
+            bottom: 0; /* Przyklejony do samego dołu */
+            left: 0;
+            width: 100%; /* Rozciągnij na całą szerokość */
+            height: 80px; /* Wysokość obszaru do kliknięcia (możesz dostosować) */
+            cursor: pointer; /* Zmień kursor na wskaźnik, aby zasugerować klikalność */
+            z-index: 1000; /* Upewnij się, że element jest nad innymi (jeśli jakieś dodasz) */
+            /* Do celów testowych, aby zobaczyć obszar kliknięcia, możesz odkomentować poniższe: */
+            /* background-color: rgba(0, 123, 255, 0.1); */
+            /* border-top: 1px solid rgba(0, 123, 255, 0.3); */
         }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <h1>Witaj na mojej stronie!</h1>
-        <p>To jest przykładowa treść, która będzie znajdować się na Twojej stronie. Możesz tu umieścić swoje nagłówki, akapity, obrazy, czy inne elementy, które tworzą layout Twojej witryny. Przycisk pełnoekranowy pojawi się niezależnie na samym dole.</p>
-        <p>Pamiętaj, aby dostosować `padding-bottom` w stylach `body`, jeśli przycisk okaże się zbyt duży lub zbyt blisko Twojej właściwej treści. Chcemy uniknąć, aby przycisk zasłaniał ważne informacje.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p>Tutaj może być więcej Twojej zawartości. Ten kod zapewnia, że przycisk "Przejdź do trybu pełnoekranowego" zawsze będzie widoczny na dole okna przeglądarki, niezależnie od tego, jak długa jest reszta strony.</p>
-    </div>
-
-    <div class="fullscreen-button-container">
-        <button id="fullscreenButton">Przejdź do trybu pełnoekranowego</button>
-    </div>
+    <div id="fullscreenActivator"></div>
 
     <script>
-        document.getElementById('fullscreenButton').addEventListener('click', function() {
+        document.getElementById('fullscreenActivator').addEventListener('click', function() {
+            // Spróbuj włączyć tryb pełnoekranowy
             if (document.documentElement.requestFullscreen) {
                 document.documentElement.requestFullscreen();
             } else if (document.documentElement.mozRequestFullScreen) { /* Firefox */
@@ -616,6 +579,9 @@
             } else if (document.documentElement.msRequestFullscreen) { /* IE/Edge */
                 document.documentElement.msRequestFullscreen();
             }
+
+            // Ukryj element po kliknięciu
+            this.style.display = 'none'; // Element znika po kliknięciu
         });
     </script>
 
